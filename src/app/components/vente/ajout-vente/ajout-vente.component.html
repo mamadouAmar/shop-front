@@ -1,1 +1,52 @@
-<p>ajout-vente works!</p>
+<div class="container m-2 align-content-center">
+    <mat-card class="border m-2">
+        <div class="container p-2">
+            <form>
+                <mat-form-field class="m-2" appearance="outline">
+                    <mat-label>Produit</mat-label>
+                    <input type="text"
+                            placeholder="Produit"
+                            matInput
+                            [formControl]="myControl"
+                            [matAutocomplete]="auto">
+                    <mat-autocomplete #auto="matAutocomplete">
+                        <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+                            {{option}}
+                        </mat-option>
+                    </mat-autocomplete>
+                </mat-form-field>
+                <mat-form-field class="m-2" appearance="outline">
+                    <mat-label>Quantite</mat-label>
+                    <input type="number" matInput>
+                </mat-form-field>
+                <button class="m-2" mat-raised-button>Ajouter</button>
+            </form>
+        </div>
+    </mat-card>
+    <mat-card class="border m-2 ligne-vente">
+        <div class="container p-2">
+            <table mat-table class="mat-table-elevation-z5">
+                <ng-container matColumnDef="idProduit">
+                    <th mat-header-cell *matHeaderCellDef>idProduit</th>
+                </ng-container>
+                <ng-container matColumnDef="libelle">
+                    <th mat-header-cell *matHeaderCellDef>libelle</th>
+                </ng-container>
+                <ng-container matColumnDef="quantite">
+                    <th mat-header-cell *matHeaderCellDef>quantite</th>
+                </ng-container>
+                <ng-container matColumnDef="total">
+                    <th mat-header-cell *matHeaderCellDef>total</th>
+                </ng-container>
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+        </div>
+    </mat-card>
+
+    <mat-card class="border m-2 align-content-center">
+        <div class="row justify-content-center p-2">
+            <button mat-raised-button color="primary">Facturer</button>
+        </div>
+    </mat-card>
+</div>
