@@ -1,23 +1,23 @@
 export class Produit {
     constructor(
-        private idProduit : Number,
-        private libelle : String,
-        private categorie : String,
-        private typeProduit : String,
-        private stock : Number,
-        private coutUnitaire : Number,
-        private prixVente : Number
+        public idProduit : Number,
+        public libelle : String,
+        public categorie : String,
+        public typeProduit : String,
+        public stock : Number,
+        public coutUnitaire : Number,
+        public prixVente : Number
     ){}
 }
 
 export class ProduitDTO {
     constructor(
-        private idProduit : Number,
-        private libelle : String,
-        private categorie : String,
-        private stock : Number,
-        private coutUnitaire : Number,
-        private prixVente : Number
+        public idProduit : Number,
+        public libelle : String,
+        public categorie : String,
+        public stock : Number,
+        public coutUnitaire : Number,
+        public prixVente : Number
     )
     {}
 }

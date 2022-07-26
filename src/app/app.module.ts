@@ -34,6 +34,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { MatMenuModule } from '@angular/material/menu';
 
 
 
@@ -75,7 +76,8 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
     MatDatepickerModule,
     MatAutocompleteModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatMenuModule
   ],
   providers: [],
   bootstrap: [AppComponent]

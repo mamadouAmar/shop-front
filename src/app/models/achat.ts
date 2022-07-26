@@ -1,13 +1,14 @@
 import { LigneAchat } from "./ligne-achat";
 
 export class Achat {
+
     constructor(
-        private idAchat : Number,
-        private dateEnregistrement : Date,
-        private frais : Number,
-        private totalAchats : Number,
-        private coutTotal : Number,
-        private achats : LigneAchat[],
+        public idAchat : Number,
+        public dateEnregistrement : Date,
+        public frais : Number,
+        public totalAchats: Number,
+        public coutTotal : Number,
+        public achats : LigneAchat[],
     )
     {
 
@@ -16,9 +17,9 @@ export class Achat {
 
 export class AchatDTO {
     constructor(
-        private idAchat : Number,
-        private dateEnregistrement : Date,
-        private coutTotal : Number
+        public idAchat : Number,
+        public dateEnregistrement : Date,
+        public coutTotal : Number
     )
     {
 
