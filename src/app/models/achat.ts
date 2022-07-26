@@ -8,7 +8,8 @@ export class Achat {
         public frais : Number,
         public totalAchats: Number,
         public coutTotal : Number,
-        public achats : LigneAchat[],
+        public dateDerniereModification : Date,
+        public achats : Array<LigneAchat>,
     )
     {
 
@@ -20,6 +21,20 @@ export class AchatDTO {
         public idAchat : Number,
         public dateEnregistrement : Date,
         public coutTotal : Number
+    )
+    {
+
+    }
+}
+
+export class AchatForAdd {
+    constructor(
+        public idAchat : Number,
+        public dateEnregistrement : Date,
+        public frais : Number,
+        public totalAchats: Number,
+        public coutTotal : Number,
+        public dateDerniereModification : Date,
     )
     {
 
