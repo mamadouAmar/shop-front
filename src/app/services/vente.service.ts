@@ -1,5 +1,7 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
+import { environment } from 'src/environments/environment';
 import { Vente, VenteDTO, VenteForAdd } from '../models/vente';
 
 @Injectable({
@@ -7,17 +9,25 @@ import { Vente, VenteDTO, VenteForAdd } from '../models/vente';
 })
 export class VenteService {
 
-  constructor() { }
+  private apiServerUrl = `${environment.apiBaseUrl}/vente`;
+
+  constructor(private http : HttpClient) { }
 
   public gets() : Observable<Array<VenteDTO>>{
-    return of();
+    return this.http.get<VenteDTO[]>(
+      `${this.apiServerUrl}`
+    );
   }
 
   public get(id:Number) : Observable<Vente>{
-    return of()
+    return this.http.get<Vente>(
+      `${this.apiServerUrl}/${id}`
+    );
   }
 
   public post(vente : VenteForAdd) : Observable<Vente>{
-    return of()
+    return this.http.post<Vente>(
+      `${this.apiServerUrl}`, vente
+    );
   }
 }

@@ -1,23 +1,32 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { Achat, AchatForAdd } from '../models/achat';
+import { environment } from 'src/environments/environment';
+import { Achat, AchatDTO, AchatForAdd } from '../models/achat';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AchatService {
 
-  constructor() { }
+  private apiServerUrl = `${environment.apiBaseUrl}/achat`;
 
-  public gets() : Observable<Array<any>>{
-    return of();
+  constructor(private http : HttpClient) { }
+
+  public gets() : Observable<Array<AchatDTO>>{
+    return this.http.get<AchatDTO[]>(
+      `${this.apiServerUrl}`);
   }
 
   public get(id:Number) : Observable<Achat>{
-    return of()
+    return this.http.get<Achat>(
+      `${this.apiServerUrl}/${id}`
+    );
   }
 
   public post(achat : AchatForAdd) : Observable<Achat>{
-    return of()
+    return this.http.post<Achat>(
+      `${this.apiServerUrl}`, AchatForAdd
+    );
   }
 }
