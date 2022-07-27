@@ -23,7 +23,7 @@ export class LigneVenteForAdd {
     )
     {
         this.prixVente =this.produit.prixVente;
-        this.total = this.produit.prixVente * this.quantite;
+        this.total = Number(this.produit.prixVente) * Number(this.quantite);
     }
 
 }

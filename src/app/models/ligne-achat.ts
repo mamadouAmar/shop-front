@@ -21,11 +21,11 @@ export class LigneAchatForAdd {
 
     constructor(
         public produit : ReducedProduit,
-        public quantite : Number,
+        public quantite: Number,
         public coutTotal : Number,
         public frais : Number,
     )
     {  
-        this.coutUnitaire = this.coutTotal/this.quantite;
+        this.coutUnitaire = Number(this.coutTotal)/Number(this.quantite);
     }
 }
