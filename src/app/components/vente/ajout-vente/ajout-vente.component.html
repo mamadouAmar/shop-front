@@ -1,13 +1,14 @@
 <div class="container m-2 align-content-center">
     <mat-card class="border m-2">
         <div class="container p-2">
-            <form>
+            <form [formGroup]="this.ligneVenteFormGroup" (ngSubmit)="ajouterLigneVente()">
                 <mat-form-field class="m-2" appearance="outline">
                     <mat-label>Produit</mat-label>
                     <input type="text"
                             placeholder="Produit"
                             matInput
                             [formControl]="myControl"
+                            formControlName="produit"
                             [matAutocomplete]="auto">
                     <mat-autocomplete #auto="matAutocomplete">
                         <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
@@ -17,7 +18,7 @@
                 </mat-form-field>
                 <mat-form-field class="m-2" appearance="outline">
                     <mat-label>Quantite</mat-label>
-                    <input type="number" matInput>
+                    <input type="number" matInput formControlName="quantite">
                 </mat-form-field>
                 <button class="m-2" mat-raised-button>Ajouter</button>
             </form>
@@ -46,7 +47,9 @@
 
     <mat-card class="border m-2 align-content-center">
         <div class="row justify-content-center p-2">
-            <button mat-raised-button color="primary">Facturer</button>
+            <form [formGroup]="this.venteFormGroup" (ngSubmit)="enregistrerVente()">
+                <button mat-raised-button color="primary">Facturer</button>
+            </form>
         </div>
     </mat-card>
 </div>

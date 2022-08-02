@@ -1,47 +1,47 @@
 <div class="container m-2 align-content-center">
-    <mat-card>
+    <mat-card class="mb-3 mt-3">
         <mat-form-field appearance="standard">
             <mat-label>Filter</mat-label>
-            <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Mia" #input>
+            <input matInput (keyup)="applyFilter($event)" placeholder="Ex. libelle ou stock" #input>
           </mat-form-field>
     </mat-card>
-      
-      <div class="mat-elevation-z8">
-        <table mat-table [dataSource]="dataSource" matSort>
+    
+    <mat-card class="mat-elevation-z8">
+        <table mat-table [dataSource]="datasource">
       
           <!-- ID Column -->
           <ng-container matColumnDef="idProduit">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> IdProduit </th>
+            <th mat-header-cell *matHeaderCellDef > IdProduit </th>
             <td mat-cell *matCellDef="let row"> {{row.idProduit}} </td>
           </ng-container>
       
           <!-- Progress Column -->
           <ng-container matColumnDef="libelle">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> libelle </th>
+            <th mat-header-cell *matHeaderCellDef > libelle </th>
             <td mat-cell *matCellDef="let row"> {{row.libelle}} </td>
           </ng-container>
       
           <!-- Name Column -->
           <ng-container matColumnDef="stock">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Stock </th>
+            <th mat-header-cell *matHeaderCellDef > Stock </th>
             <td mat-cell *matCellDef="let row"> {{row.stock}} </td>
           </ng-container>
       
           <!-- Fruit Column -->
           <ng-container matColumnDef="options">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Options </th>
+            <th mat-header-cell *matHeaderCellDef > Options </th>
             <td mat-cell *matCellDef="let row"> 
               <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
                 <mat-icon>more_vert</mat-icon>
               </button>
                 <mat-menu #menu="matMenu">
-                  <button mat-menu-item>
+                  <button mat-menu-item (click)="onPlusClick(row)">
                     <span>Plus</span>
                   </button>
-                  <button mat-menu-item >
+                  <button mat-menu-item (click)="onModClick(row)" >
                     <span>Modifier</span>
                   </button>
-                  <button mat-menu-item>
+                  <button mat-menu-item (click)="onSupClick(row)">
                     <span>Supprimer</span>
                   </button>
                 </mat-menu>
@@ -49,7 +49,9 @@
           </ng-container>
       
           <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;" >
+
+          </tr>
       
           <!-- Row shown when there is no matching data. -->
           <tr class="mat-row" *matNoDataRow>
@@ -57,6 +59,7 @@
           </tr>
         </table>
         <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
-    </div>
+    </mat-card>
+      
            
 </div>

@@ -1,5 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import {AfterViewInit, Component, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
@@ -12,7 +12,7 @@ import { AchatService } from 'src/app/services/achat.service';
   templateUrl: './list-achat.component.html',
   styleUrls: ['./list-achat.component.css']
 })
-export class ListAchatComponent implements AfterViewInit {
+export class ListAchatComponent implements AfterViewInit, OnInit {
 
   achats! : Array<AchatDTO>
 
@@ -23,9 +23,10 @@ export class ListAchatComponent implements AfterViewInit {
   @ViewChild(MatSort) sort!: MatSort;
 
   constructor(private achatService : AchatService) {
-
-    this.getAchats();
     this.dataSource = new MatTableDataSource(this.achats);
+  }
+  ngOnInit(): void {
+    this.getAchats();
   }
 
   public getAchats(): void {

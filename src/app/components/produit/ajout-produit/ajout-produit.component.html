@@ -1,14 +1,38 @@
 <div class="container m-3 align-content-center">
     <mat-card>
-        <form>
-            <div>
+        <form [formGroup]="produitFormGroup" (ngSubmit)="ajouterProduit()">
+            <div class="m-3">
                 <mat-form-field class="forms" appearance="outline">
-                    <mat-label>Produit</mat-label>
-                    <input matInput>
+                    <mat-label>Libelle</mat-label>
+                    <input matInput type="text" formControlName="libelle" class="form-control">
+                </mat-form-field>
+            </div>
+            <div class="m-3">
+                <mat-form-field class="forms" appearance="outline">
+                    <mat-label>Categorie</mat-label>
+                    <input matInput type="text" formControlName="categorie" class="form-control">
+                </mat-form-field>
+            </div>
+            <div class="m-3">
+                <mat-form-field class="forms" appearance="outline">
+                    <mat-label>Type de Produit</mat-label>
+                    <input matInput type="text" formControlName="typeProduit" class="form-control">
+                </mat-form-field>
+            </div>
+            <div class="m-3">
+                <mat-form-field class="forms" appearance="outline">
+                    <mat-label>Cout unitaire</mat-label>
+                    <input matInput type="number" formControlName="coutUnitaire" class="form-control">
+                </mat-form-field>
+            </div>
+            <div class="m-3">
+                <mat-form-field class="forms" appearance="outline">
+                    <mat-label>Prix Vente</mat-label>
+                    <input matInput type="number" formControlName="prixVente" class="form-control">
                 </mat-form-field>
             </div>
             <div>
-                
+                <button mat-raised-button [disabled]="!this.produitFormGroup.valid">Enregistrer produit</button>
             </div>
         </form>
     </mat-card>

@@ -1,4 +1,4 @@
-import { LigneVente } from "./ligne-vente";
+import { LigneVente, LigneVenteForAdd } from "./ligne-vente";
 
 export class Vente {
     constructor(
@@ -22,10 +22,9 @@ export class VenteDTO {
 
 export class VenteForAdd {
     constructor(
-        public idVente : Number,
         public dateVente : Date,
         public totalVente : Number,
-        public ventes : Array<LigneVente>
+        public ventes : Array<LigneVenteForAdd>
     )
     {}
 }
