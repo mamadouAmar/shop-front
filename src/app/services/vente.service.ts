@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { environment } from 'src/environments/environment';
@@ -16,6 +16,20 @@ export class VenteService {
   public gets() : Observable<Array<VenteDTO>>{
     return this.http.get<VenteDTO[]>(
       `${this.apiServerUrl}`
+    );
+  }
+
+  public findVentes(
+    pageNumber = 0,
+    pageSize = 10
+  ) : Observable<any> {
+    return this.http.get(
+      `${this.apiServerUrl}`,
+      {
+        params : new HttpParams()
+        .set('pageNumber', pageNumber)
+        .set('pageSize', pageSize)
+      }
     );
   }
 

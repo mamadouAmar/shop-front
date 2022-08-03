@@ -19,8 +19,8 @@ export class ProduitDataSource implements DataSource<ProduitDTO>{
         return this.produits.asObservable();
     }
     disconnect(collectionViewer: CollectionViewer): void {
-        return this.produits.complete();
-        return this.loadingProduits.complete();
+        this.produits.complete();
+        this.loadingProduits.complete();
     }
 
     loadProduits(pageNumber=0, pageSize=10){
@@ -32,5 +32,4 @@ export class ProduitDataSource implements DataSource<ProduitDTO>{
             finalize(() => this.loadingProduits.next(false))
         ).subscribe(produits => this.produits.next(produits['content']))
     }
-
 }

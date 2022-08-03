@@ -1,9 +1,8 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import {AfterViewInit, Component, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
-import {MatTableDataSource} from '@angular/material/table';
-import { VenteDTO } from 'src/app/models/vente';
+import { VenteDataSource } from 'src/app/models/vente-data-source';
 import { VenteService } from 'src/app/services/vente.service';
 
 
@@ -12,43 +11,49 @@ import { VenteService } from 'src/app/services/vente.service';
   templateUrl: './list-vente.component.html',
   styleUrls: ['./list-vente.component.css']
 })
-export class ListVenteComponent implements AfterViewInit {
+export class ListVenteComponent implements AfterViewInit, OnInit {
 
-  ventes! : Array<VenteDTO>;
+//  ventes! : Array<VenteDTO>;
 
   displayedColumns: string[] = ['idVente', 'dateVente', 'totalVente', 'options'];
-  dataSource: MatTableDataSource<VenteDTO>;
+  dataSource!: VenteDataSource;
 
   @ViewChild(MatPaginator) paginator! : MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
   constructor(private venteService : VenteService) {
-    this.getVentes();
-    this.dataSource = new MatTableDataSource(this.ventes);
+    
+  }
+  ngOnInit(): void {
+    this.dataSource = new VenteDataSource(this.venteService);
+    this.dataSource.loadVentes(0);
   }
 
-  public getVentes() : void {
-    this.venteService.gets().subscribe(
-      (response : VenteDTO[]) => {
-        this.ventes = response;
-      },
-      (error : HttpErrorResponse) => {
-        alert(error.message);
-      }
-    );
-  }
+
 
   ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
+    // this.dataSource.paginator = this.paginator;
+    // this.dataSource.sort = this.sort;
   }
 
   applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
+    // const filterValue = (event.target as HTMLInputElement).value;
+    // this.dataSource.filter = filterValue.trim().toLowerCase();
 
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
-    }
+    // if (this.dataSource.paginator) {
+    //   this.dataSource.paginator.firstPage();
+    // }
+  }
+
+  public onPlusClick(row : any){
+    console.log(row)
+  }
+
+  public onModClick(row : any){
+    console.log(row)
+  }
+
+  public onSupClick(row : any){
+    console.log(row)
   }
 }

@@ -31,7 +31,7 @@ export class ProduitService {
         .set('pageNumber', pageNumber)
         .set('pageSize', pageSize)
       }
-    )
+    );
   }
 
   public get(id:Number) : Observable<Produit>{

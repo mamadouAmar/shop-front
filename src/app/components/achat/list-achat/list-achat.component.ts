@@ -4,6 +4,7 @@ import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
 import { AchatDTO } from 'src/app/models/achat';
+import { AchatDataSource } from 'src/app/models/achat-data-source';
 import { AchatService } from 'src/app/services/achat.service';
 
 
@@ -14,44 +15,44 @@ import { AchatService } from 'src/app/services/achat.service';
 })
 export class ListAchatComponent implements AfterViewInit, OnInit {
 
-  achats! : Array<AchatDTO>
+//  achats! : Array<AchatDTO>
 
   displayedColumns: string[] = ['idAchat', 'dateEnregistrement', 'coutTotal', 'options'];
-  dataSource: MatTableDataSource<AchatDTO>;
+  dataSource!: AchatDataSource;
 
   @ViewChild(MatPaginator) paginator! : MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
   constructor(private achatService : AchatService) {
-    this.dataSource = new MatTableDataSource(this.achats);
   }
   ngOnInit(): void {
-    this.getAchats();
-  }
-
-  public getAchats(): void {
-    this.achatService.gets().subscribe(
-      (response : AchatDTO[]
-    ) => {
-      this.achats = response;
-    },
-    (error : HttpErrorResponse) => {
-      alert(error.message);
-    }
-    );
+    this.dataSource = new AchatDataSource(this.achatService);
+    this.dataSource.loadAchats(0);
   }
 
   ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
+    // this.dataSource.paginator = this.paginator;
+    // this.dataSource.sort = this.sort;
   }
 
   applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
+    // const filterValue = (event.target as HTMLInputElement).value;
+    // this.dataSource.filter = filterValue.trim().toLowerCase();
 
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
-    }
+    // if (this.dataSource.paginator) {
+    //   this.dataSource.paginator.firstPage();
+    // }
+  }
+
+  public onPlusClick(row : any){
+    console.log(row)
+  }
+
+  public onModClick(row : any){
+    console.log(row)
+  }
+
+  public onSupClick(row : any){
+    console.log(row)
   }
 }

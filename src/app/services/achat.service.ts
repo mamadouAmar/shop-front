@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { environment } from 'src/environments/environment';
@@ -13,9 +13,23 @@ export class AchatService {
 
   constructor(private http : HttpClient) { }
 
-  public gets() : Observable<Array<AchatDTO>>{
-    return this.http.get<AchatDTO[]>(
+  public gets() : Observable<any>{
+    return this.http.get<any>(
       `${this.apiServerUrl}`);
+  }
+
+  public findAchats(
+    pageNumber = 0,
+    pageSize = 10
+  ): Observable<any>{
+    return this.http.get(
+      `${this.apiServerUrl}`,
+      {
+        params : new HttpParams()
+        .set('pageNumber', pageNumber)
+        .set('pageSize', pageSize)
+      }
+    );
   }
 
   public get(id:Number) : Observable<Achat>{
