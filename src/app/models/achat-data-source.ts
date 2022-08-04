@@ -8,6 +8,12 @@ export class AchatDataSource implements DataSource<AchatDTO>{
 
     private achats = new BehaviorSubject<AchatDTO[]>([]);
 
+    public totalElements: number = 0;
+
+    public first!: boolean;
+
+    public last!: boolean;
+
     private loadingAchats = new BehaviorSubject<boolean>(false);
 
     public loading$ = this.loadingAchats.asObservable();
@@ -25,6 +31,10 @@ export class AchatDataSource implements DataSource<AchatDTO>{
         this.loadingAchats.complete();
     }
 
+    getDataSize(){
+        return this.achats.value.length
+    }
+
     loadAchats(pageNumber=0, pageSize=10){
         this.loadingAchats.next(true);
 
@@ -32,6 +42,11 @@ export class AchatDataSource implements DataSource<AchatDTO>{
             .pipe(
                 catchError(() => of([])),
                 finalize(() => this.loadingAchats.next(false))
-            ).subscribe(achats => this.achats.next(achats['content']));
+            ).subscribe(achats => {
+                this.achats.next(achats['content'])
+                this.totalElements = achats['totalElements'];
+                this.first = achats['first'];
+                this.last = achats['last'];
+            });
     }
 }

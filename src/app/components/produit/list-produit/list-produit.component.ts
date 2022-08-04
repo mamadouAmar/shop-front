@@ -1,6 +1,7 @@
 import {OnInit, Component, ViewChild, AfterViewInit} from '@angular/core';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
+import { tap } from 'rxjs/operators';
 import { ProduitDataSource } from 'src/app/models/produit-data-source';
 import { ProduitService } from 'src/app/services/produit.service';
 
@@ -25,6 +26,17 @@ export class ListProduitComponent implements OnInit, AfterViewInit{
   ngAfterViewInit(): void {
     // this.dataSource.paginator = this.paginator;
     // this.dataSource.sort = this.sort;
+    this.paginator.page
+            .pipe(
+                tap(() => this.loadProduitsPage())
+            )
+            .subscribe();
+  }
+  loadProduitsPage(): void {
+    this.datasource.loadProduits(
+      this.paginator.pageIndex,
+      this.paginator.pageSize
+    )
   }
 
   ngOnInit() {

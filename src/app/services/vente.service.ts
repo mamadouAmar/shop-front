@@ -27,8 +27,8 @@ export class VenteService {
       `${this.apiServerUrl}`,
       {
         params : new HttpParams()
-        .set('pageNumber', pageNumber)
-        .set('pageSize', pageSize)
+        .set('page', pageNumber)
+        .set('size', pageSize)
       }
     );
   }

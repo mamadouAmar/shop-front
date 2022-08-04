@@ -1,7 +1,7 @@
-import { HttpErrorResponse } from '@angular/common/http';
 import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
+import { tap } from 'rxjs/operators';
 import { VenteDataSource } from 'src/app/models/vente-data-source';
 import { VenteService } from 'src/app/services/vente.service';
 
@@ -12,8 +12,6 @@ import { VenteService } from 'src/app/services/vente.service';
   styleUrls: ['./list-vente.component.css']
 })
 export class ListVenteComponent implements AfterViewInit, OnInit {
-
-//  ventes! : Array<VenteDTO>;
 
   displayedColumns: string[] = ['idVente', 'dateVente', 'totalVente', 'options'];
   dataSource!: VenteDataSource;
@@ -34,6 +32,16 @@ export class ListVenteComponent implements AfterViewInit, OnInit {
   ngAfterViewInit() {
     // this.dataSource.paginator = this.paginator;
     // this.dataSource.sort = this.sort;
+    this.paginator.page
+      .pipe(
+        tap(() => this.loadVentesPage())  
+      ).subscribe()
+  }
+  loadVentesPage() {
+    this.dataSource.loadVentes(
+      this.paginator.pageIndex,
+      this.paginator.pageSize
+    )
   }
 
   applyFilter(event: Event) {

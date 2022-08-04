@@ -9,6 +9,12 @@ export class ProduitDataSource implements DataSource<ProduitDTO>{
     private produits = new BehaviorSubject<ProduitDTO[]>([]);
     private loadingProduits = new BehaviorSubject<boolean>(false);
 
+    public totalElements: number = 0;
+
+    public first!: boolean;
+
+    public last!: boolean;
+
     public loading$ = this.loadingProduits.asObservable();
 
     constructor(private produitService : ProduitService){
@@ -30,6 +36,11 @@ export class ProduitDataSource implements DataSource<ProduitDTO>{
         (pageNumber, pageSize).pipe(
             catchError(() => of([])),
             finalize(() => this.loadingProduits.next(false))
-        ).subscribe(produits => this.produits.next(produits['content']))
+        ).subscribe(produits => {
+            this.produits.next(produits['content'])
+            this.totalElements = produits['totalElements'];
+            this.first = produits['first'];
+                this.last = produits['last'];
+        });
     }
 }

@@ -1,9 +1,7 @@
-import { HttpErrorResponse } from '@angular/common/http';
 import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
-import {MatTableDataSource} from '@angular/material/table';
-import { AchatDTO } from 'src/app/models/achat';
+import { tap } from 'rxjs/operators';
 import { AchatDataSource } from 'src/app/models/achat-data-source';
 import { AchatService } from 'src/app/services/achat.service';
 
@@ -27,12 +25,23 @@ export class ListAchatComponent implements AfterViewInit, OnInit {
   }
   ngOnInit(): void {
     this.dataSource = new AchatDataSource(this.achatService);
-    this.dataSource.loadAchats(0);
+    this.dataSource.loadAchats(0, 10);
   }
 
   ngAfterViewInit() {
-    // this.dataSource.paginator = this.paginator;
+    //this.dataSource.paginator = this.paginator;
     // this.dataSource.sort = this.sort;
+    this.paginator.page
+      .pipe(
+        tap(()=> this.loadAchatPage())
+      ).subscribe()
+  }
+  
+  loadAchatPage() {
+    this.dataSource.loadAchats(
+      this.paginator.pageIndex,
+      this.paginator.pageSize
+    );
   }
 
   applyFilter(event: Event) {

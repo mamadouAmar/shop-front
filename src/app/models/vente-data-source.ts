@@ -8,6 +8,12 @@ export class VenteDataSource implements DataSource<VenteDTO>{
     private ventes = new BehaviorSubject<VenteDTO[]>([]);
     private loadingVentes = new BehaviorSubject<boolean>(false);
 
+    public totalElements: number = 0;
+
+    public first!: boolean;
+
+    public last!: boolean;
+
     public loading$ = this.loadingVentes.asObservable();
 
     constructor(private venteService : VenteService){
@@ -26,7 +32,12 @@ export class VenteDataSource implements DataSource<VenteDTO>{
         this.loadingVentes.next(true);
 
         this.venteService.findVentes(pageNumber, pageSize)
-            .subscribe(data => this.ventes.next(data['content']));
+            .subscribe(data => {
+                this.ventes.next(data['content']);
+                this.totalElements = data['totalElements'];
+                this.first = data['first'];
+                this.last = data['last'];
+            });
     }
     
 }
