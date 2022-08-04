@@ -1,9 +1,16 @@
-<mat-tab-group>
+<!-- <mat-tab-group>
     <mat-tab label="Ventes">
         <app-list-vente></app-list-vente>
     </mat-tab>
     <mat-tab label="Vendre">
         <app-ajout-vente></app-ajout-vente>
     </mat-tab>
-</mat-tab-group>
+</mat-tab-group> -->
+
+<nav mat-tab-nav-bar>
+    <a mat-tab-link routerLink="/vente">Ventes</a>
+    <a mat-tab-link routerLink="edit">Ajouter/Modifier</a>
+    <a mat-tab-link routerLink=:id>Voir</a>
+</nav>
+<router-outlet></router-outlet>
   

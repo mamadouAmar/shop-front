@@ -1,8 +1,14 @@
-<mat-tab-group>
+<!-- <mat-tab-group>
     <mat-tab label="Achats">
         <app-list-achat></app-list-achat>
     </mat-tab>
     <mat-tab label="Approvisionner" >
         <app-ajout-achat></app-ajout-achat>
     </mat-tab>
-</mat-tab-group>
+</mat-tab-group> -->
+<nav mat-tab-nav-bar>
+    <a mat-tab-link routerLink="/achat">Achats</a>
+    <a mat-tab-link routerLink="edit">Ajouter/Modifier</a>
+    <a mat-tab-link routerLink=:id>Voir</a>
+</nav>
+<router-outlet></router-outlet>
