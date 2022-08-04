@@ -34,14 +34,14 @@ export class ProduitService {
     );
   }
 
-  public get(id:Number) : Observable<Produit>{
-    return this.http.get<Produit>(
+  public get(id:Number) : Observable<any>{
+    return this.http.get<any>(
       `${this.apiServerUrl}/${id}`
     );
   }
 
-  public post(produit : ProduitForAdd) : Observable<Produit>{
-    return this.http.post<Produit>(
+  public post(produit : ProduitForAdd) : Observable<any>{
+    return this.http.post<any>(
       `${this.apiServerUrl}`, produit
     );
   }

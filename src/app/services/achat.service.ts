@@ -32,15 +32,15 @@ export class AchatService {
     );
   }
 
-  public get(id:Number) : Observable<Achat>{
-    return this.http.get<Achat>(
+  public get(id:Number) : Observable<any>{
+    return this.http.get<any>(
       `${this.apiServerUrl}/${id}`
     );
   }
 
   public post(achat : AchatForAdd) : Observable<Achat>{
-    return this.http.post<Achat>(
-      `${this.apiServerUrl}`, AchatForAdd
+    return this.http.post<any>(
+      `${this.apiServerUrl}`, achat
     );
   }
 }

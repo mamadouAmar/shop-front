@@ -35,7 +35,8 @@
                 <mat-icon>more_vert</mat-icon>
               </button>
                 <mat-menu #menu="matMenu">
-                  <button mat-menu-item (click)="onPlusClick(row)">
+                  <button mat-menu-item
+                  [routerLink]="row.idProduit">
                     <span>Plus</span>
                   </button>
                   <button mat-menu-item (click)="onModClick(row)">
