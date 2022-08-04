@@ -35,7 +35,10 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { MatMenuModule } from '@angular/material/menu';
-import { HttpClientModule } from '@angular/common/http'
+import { HttpClientModule } from '@angular/common/http';
+import { ViewProduitComponent } from './components/produit/view-produit/view-produit.component';
+import { ViewVenteComponent } from './components/vente/view-vente/view-vente.component';
+import { ViewAchatComponent } from './components/achat/view-achat/view-achat.component'
 
 
 
@@ -55,7 +58,10 @@ import { HttpClientModule } from '@angular/common/http'
     ListProduitComponent,
     AjoutProduitComponent,
     AccueilComponent,
-    SidebarComponent
+    SidebarComponent,
+    ViewProduitComponent,
+    ViewVenteComponent,
+    ViewAchatComponent
   ],
   imports: [
     BrowserModule,
