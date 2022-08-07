@@ -1,9 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {Observable} from 'rxjs';
-import {map, startWith} from 'rxjs/operators';
+import {map, startWith, switchMap} from 'rxjs/operators';
 import { LigneVenteForAdd } from 'src/app/models/ligne-vente';
+import { ProduitDTO, ReducedProduit } from 'src/app/models/produit';
 import { VenteForAdd } from 'src/app/models/vente';
+import { ProduitService } from 'src/app/services/produit.service';
 import { VenteService } from 'src/app/services/vente.service';
 
 @Component({
@@ -21,22 +23,25 @@ export class AjoutVenteComponent implements OnInit {
 
   ligneVentes : Array<LigneVenteForAdd> = [];
 
-  constructor(private venteService : VenteService,
+  produits! : ProduitDTO[];
+
+  constructor(private venteService : VenteService, 
+    private produitService : ProduitService,
     private fbVente : FormBuilder,
     private fbLignevente : FormBuilder)
   {
-
+    this.getProduits();
   }
 
   myControl = new FormControl('');
-  options: string[] = ['One', 'Two', 'Three'];
-  filteredOptions: Observable<string[]> | undefined;
+  options!: String[];
+  filteredOptions: Observable<String[]> | undefined;
 
   ngOnInit() {
     this.ligneVenteFormGroup = this.fbLignevente.group(
       {
-        produit : this.fbLignevente.control(null, [Validators.required]),
-        quantite : this.fbLignevente.control(Number(1), [Validators.required])
+        produit : this.fbLignevente.control(String, [Validators.required]),
+        quantite : this.fbLignevente.control(Number, [Validators.required])
       }
     )
 
@@ -52,9 +57,8 @@ export class AjoutVenteComponent implements OnInit {
     );
   }
 
-  private _filter(value: string): string[] {
+  private _filter(value: string): String[] {
     const filterValue = value.toLowerCase();
-
     return this.options.filter(option => option.toLowerCase().includes(filterValue));
   }
 
@@ -63,14 +67,34 @@ export class AjoutVenteComponent implements OnInit {
 
   public ajouterLigneVente() {
     if(this.ligneVenteFormGroup.valid){
-      // let p = this.ligneVenteFormGroup.controls['produit'];
-      // let q = this.ligneVenteFormGroup.controls['quantite'];
-      // let lv = new LigneVenteForAdd(p, q);
-      // this.ligneVentes.push(lv);
+      let lib = this.ligneVenteFormGroup.controls['produit'].value;
+      let index = this.options.indexOf(lib);
+      let q = this.ligneVenteFormGroup.controls['quantite'].value;
+      let p = this.produits[index]
+      let pToAdd = new ReducedProduit(p.idProduit, p.libelle, p.coutUnitaire, p.prixVente)
+      let lv = new LigneVenteForAdd(pToAdd, q);
+      this.ligneVentes.push(lv);
     }
-    // this.ligneVente.push(new LigneAchatForAdd(
+    // this.ligneVentes.push(new LigneAchatForAdd(
     //   l['produit'], l['quantite']
     // ));
+  }
+
+  getProduits(){
+    this.produitService.getProduits().subscribe(
+      (produits) => {
+        this.produits = produits;
+        this.getLibelleProduits();
+      }
+    );
+  }
+
+  public getLibelleProduits() : void{
+    let libelles: String[] = [];
+    for (let index = 0; index < this.produits.length; index++) {
+      libelles.push(this.produits[index].libelle);
+    }
+    this.options = libelles;
   }
 
   public enregistrerVente(){

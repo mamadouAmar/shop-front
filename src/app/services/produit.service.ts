@@ -34,6 +34,12 @@ export class ProduitService {
     );
   }
 
+  public getProduits() : Observable<ProduitDTO[]>{
+    return this.http.get<ProduitDTO[]>(
+      `${this.apiServerUrl}/dtos`
+    );
+  }
+
   public get(id:Number) : Observable<any>{
     return this.http.get<any>(
       `${this.apiServerUrl}/${id}`
