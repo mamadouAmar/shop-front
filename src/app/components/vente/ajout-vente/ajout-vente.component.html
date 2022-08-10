@@ -7,12 +7,12 @@
                     <input type="text"
                             placeholder="Produit"
                             matInput
-                            [formControl]="myControl"
+                            [formControl]="selectedProduitControl"
                             formControlName="produit"
                             [matAutocomplete]="auto">
                     <mat-autocomplete #auto="matAutocomplete">
-                        <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
-                            {{option}}
+                        <mat-option *ngFor="let option of filteredOptions | async" [value]="option.libelle">
+                            {{option.libelle}}
                         </mat-option>
                     </mat-autocomplete>
                 </mat-form-field>
@@ -26,18 +26,22 @@
     </mat-card>
     <mat-card class="border m-2 ligne-vente">
         <div class="container p-2">
-            <table mat-table class="mat-table-elevation-z5">
+            <table mat-table [dataSource]="datasource" class="mat-table-elevation-z5">
                 <ng-container matColumnDef="idProduit">
                     <th mat-header-cell *matHeaderCellDef>idProduit</th>
+                    <td mat-cell *matCellDef="let lv">{{lv.idProduit}}</td>
                 </ng-container>
                 <ng-container matColumnDef="libelle">
                     <th mat-header-cell *matHeaderCellDef>libelle</th>
+                    <td mat-cell *matCellDef="let lv">{{lv.produit.libelle}}</td>
                 </ng-container>
                 <ng-container matColumnDef="quantite">
                     <th mat-header-cell *matHeaderCellDef>quantite</th>
+                    <td mat-cell *matCellDef="let lv">{{lv.quantite}}</td>
                 </ng-container>
                 <ng-container matColumnDef="total">
                     <th mat-header-cell *matHeaderCellDef>total</th>
+                    <td mat-cell *matCellDef="let lv">{{lv.total}}</td>
                 </ng-container>
                 <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                 <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>

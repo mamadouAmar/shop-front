@@ -1,7 +1,7 @@
 import { HttpClient, HttpParams, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { Produit, ProduitDTO, ProduitForAdd } from '../models/produit';
 
@@ -34,19 +34,30 @@ export class ProduitService {
     );
   }
 
+  produits : ProduitDTO[] = []
+
   public getProduits() : Observable<ProduitDTO[]>{
+
     return this.http.get<ProduitDTO[]>(
       `${this.apiServerUrl}/dtos`
-    );
+    ).pipe(
+      tap(
+        data => this.produits = data
+      )
+    )
+
+    // return this.http.get<ProduitDTO[]>(
+    //   `${this.apiServerUrl}/dtos`
+    // );
   }
 
-  public get(id:Number) : Observable<any>{
+  public get(id:Number) : Observable<Produit>{
     return this.http.get<any>(
       `${this.apiServerUrl}/${id}`
     );
   }
 
-  public post(produit : ProduitForAdd) : Observable<any>{
+  public post(produit : ProduitForAdd) : Observable<Produit>{
     return this.http.post<any>(
       `${this.apiServerUrl}`, produit
     );
