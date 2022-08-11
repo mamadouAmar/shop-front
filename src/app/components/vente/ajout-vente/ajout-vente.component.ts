@@ -1,11 +1,11 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import { MatTableDataSource } from '@angular/material/table';
 import {Observable} from 'rxjs';
 import {distinctUntilChanged, map, startWith, switchMap, debounceTime, tap} from 'rxjs/operators';
 import { LigneVenteForAdd } from 'src/app/models/ligne-vente';
-import { ProduitDTO, ProduitForAdd, ReducedProduit } from 'src/app/models/produit';
-import { Vente, VenteForAdd } from 'src/app/models/vente';
+import { ProduitDTO, ReducedProduit } from 'src/app/models/produit';
+import { VenteForAdd } from 'src/app/models/vente';
 import { ProduitService } from 'src/app/services/produit.service';
 import { VenteService } from 'src/app/services/vente.service';
 

@@ -1,12 +1,12 @@
 <div class="container m-2 align-content-center">
-    <mat-card>
+    <mat-card class="mb-3 mt-3">
         <mat-form-field appearance="standard">
             <mat-label>Filter</mat-label>
             <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Mia" #input>
           </mat-form-field>
     </mat-card>
       
-      <div class="mat-elevation-z8">
+      <mat-card class="mat-elevation-z8">
         <table mat-table [dataSource]="dataSource" matSort>
       
           <!-- ID Column -->
@@ -59,6 +59,6 @@
         </table>
         <mat-paginator [length]="this.dataSource.totalElements" 
           [pageSizeOptions]="[10, 25, 50, 100]" ></mat-paginator>
-    </div>
+      </mat-card>
            
 </div>
