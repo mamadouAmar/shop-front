@@ -2,10 +2,10 @@ import {Component, Input, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import { MatTableDataSource } from '@angular/material/table';
 import {Observable} from 'rxjs';
-import {distinctUntilChanged, map, startWith, switchMap, debounceTime} from 'rxjs/operators';
+import {distinctUntilChanged, map, startWith, switchMap, debounceTime, tap} from 'rxjs/operators';
 import { LigneVenteForAdd } from 'src/app/models/ligne-vente';
 import { ProduitDTO, ProduitForAdd, ReducedProduit } from 'src/app/models/produit';
-import { VenteForAdd } from 'src/app/models/vente';
+import { Vente, VenteForAdd } from 'src/app/models/vente';
 import { ProduitService } from 'src/app/services/produit.service';
 import { VenteService } from 'src/app/services/vente.service';
 
@@ -18,7 +18,6 @@ export class AjoutVenteComponent implements OnInit {
 
   nouveauVente! : VenteForAdd;
 
-  @Input() datasource = new MatTableDataSource<LigneVenteForAdd>();
 
   venteFormGroup! : FormGroup;
 
@@ -26,8 +25,14 @@ export class AjoutVenteComponent implements OnInit {
 
   ligneVentes : LigneVenteForAdd[] = [];
 
+  datasource = new MatTableDataSource<LigneVenteForAdd>(this.ligneVentes);
+
+
   produits! : ProduitDTO[];
   loading!: boolean;
+
+  totalVente: number = 0;
+
 
   constructor(private venteService : VenteService, 
     private produitService : ProduitService,
@@ -61,6 +66,9 @@ export class AjoutVenteComponent implements OnInit {
       startWith(''),
       debounceTime(400),
       distinctUntilChanged(),
+      tap(() => {
+         
+      }),
       switchMap(
         (value) => 
         {
@@ -68,6 +76,13 @@ export class AjoutVenteComponent implements OnInit {
         }
         ),
     );
+  }
+
+  private updateTotalVente(){
+    this.totalVente = 0;
+    for (const lv of this.ligneVentes) {
+      this.totalVente += lv.total.valueOf();
+    }
   }
 
   private _filter(value: string): Observable<ProduitDTO[]> {
@@ -99,9 +114,12 @@ export class AjoutVenteComponent implements OnInit {
       let pToAdd = new ReducedProduit(p.idProduit, p.libelle, p.coutUnitaire, p.prixVente)
       let lv = new LigneVenteForAdd(pToAdd, q);
       this.ligneVentes.push(lv);
-      this.datasource.data.push(lv);
+      this.datasource._updateChangeSubscription();
+      this.updateTotalVente();
+      this.ligneVenteFormGroup.reset();
     }
   }
+
 
   // getProduits(){
   //   this.produitService.getProduits().subscribe(
@@ -122,10 +140,17 @@ export class AjoutVenteComponent implements OnInit {
 
   public enregistrerVente(){
     this.nouveauVente = new VenteForAdd(
-      new Date(), Number(0), this.ligneVentes
+      new Date(), Number(this.totalVente), this.ligneVentes
     );
     if(this.ligneVentes)
-      this.venteService.post(this.nouveauVente);
+      this.venteService.post(this.nouveauVente)
+      .subscribe(value => {
+        console.log(value);
+        this.ligneVentes = [];
+        this.datasource = new MatTableDataSource(this.ligneVentes);
+        this.totalVente = 0;
+        this.venteFormGroup.reset();
+      });
   }
 
 }

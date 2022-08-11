@@ -33,13 +33,13 @@ export class VenteService {
     );
   }
 
-  public get(id:Number) : Observable<any>{
+  public get(id:Number) : Observable<Vente>{
     return this.http.get<any>(
       `${this.apiServerUrl}/${id}`
     );
   }
 
-  public post(vente : VenteForAdd) : Observable<any>{
+  public post(vente : VenteForAdd) : Observable<Vente>{
     return this.http.post<any>(
       `${this.apiServerUrl}`, vente
     );
