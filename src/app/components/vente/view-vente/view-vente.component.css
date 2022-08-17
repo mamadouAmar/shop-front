@@ -1,0 +1,13 @@
+/* label {
+    font-size: large;
+}
+
+div {
+    margin: 5px;
+    padding: 5px;
+} */
+
+.ligne-vente {
+    max-height: 400px;
+    overflow: auto;
+}

@@ -29,7 +29,6 @@ export class AchatDTO {
 
 export class AchatForAdd {
     constructor(
-        public idAchat : Number,
         public dateEnregistrement : Date,
         public frais : Number,
         public totalAchats: Number,

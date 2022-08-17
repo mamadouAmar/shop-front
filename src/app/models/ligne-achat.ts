@@ -16,16 +16,22 @@ export class LigneAchat {
 export class LigneAchatForAdd {
 
     public coutUnitaire! : Number;
-    public prixAchat! : Number;
-
 
     constructor(
         public produit : ReducedProduit,
         public quantite: Number,
         public coutTotal : Number,
-        public frais : Number,
+        public prixVente : Number
     )
     {  
-        this.coutUnitaire = Number(this.coutTotal)/Number(this.quantite);
+        if(this.coutTotal.valueOf() != 0){
+            this.coutUnitaire = Number(this.coutTotal)/Number(this.quantite);
+        }
+        else{
+            this.coutUnitaire = this.produit.coutUnitaire;
+        }
+        if(this.prixVente.valueOf() == 0){
+            this.prixVente = this.produit.prixVente
+        }
     }
 }

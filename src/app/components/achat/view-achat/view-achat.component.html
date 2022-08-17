@@ -1,1 +1,40 @@
-<p>view-achat works!</p>
+<mat-card class="m-3 vente-info p-3">
+    <div class="row">
+        <label>Achat id :</label>
+    </div> 
+    <div class="row">
+        <label>Date : </label>
+    </div>
+    
+    <div class="row">
+        <label class="col">Frais : </label>
+        <label class="col">Cout total :</label>
+    </div>
+
+    <div class="row ligne-vente">
+        <table mat-table [dataSource]="this.datasource" class="mat-table-elevation-z5">
+            <ng-container matColumnDef="idProduit">
+                <th mat-header-cell *matHeaderCellDef>idProduit</th>
+                <td mat-cell *matCellDef="let la">{{la.produit.idProduit}}</td>
+                <td mat-footer-cell *matFooterCellDef=""></td>
+            </ng-container>
+            <ng-container matColumnDef="libelle">
+                <th mat-header-cell *matHeaderCellDef>libelle</th>
+                <td mat-cell *matCellDef="let la">{{la.produit.libelle}}</td>
+                <td mat-footer-cell *matFooterCellDef></td>
+            </ng-container>
+            <ng-container matColumnDef="quantite">
+                <th mat-header-cell *matHeaderCellDef>quantite</th>
+                <td mat-cell *matCellDef="let la">{{la.quantite}}</td>
+                <td mat-footer-cell *matFooterCellDef></td>
+            </ng-container>
+            <ng-container matColumnDef="total">
+                <th mat-header-cell *matHeaderCellDef>total</th>
+                <td mat-cell *matCellDef="let la">{{la.total}}</td>
+                <td mat-footer-cell *matFooterCellDef></td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+    </div>
+</mat-card>

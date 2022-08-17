@@ -1,6 +1,9 @@
+import { DataSource } from '@angular/cdk/collections';
 import { Component, OnInit } from '@angular/core';
+import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Achat } from 'src/app/models/achat';
+import { LigneAchat } from 'src/app/models/ligne-achat';
 import { AchatService } from 'src/app/services/achat.service';
 
 @Component({
@@ -11,7 +14,12 @@ import { AchatService } from 'src/app/services/achat.service';
 export class ViewAchatComponent implements OnInit {
 
   idAchat! : Number;
-  achat! : Achat
+  achat! : Achat;
+
+  datasource! : DataSource<LigneAchat>;
+
+  displayedColumns: string[] = ['idProduit', 'libelle', 'quantite', 'total'];
+
 
   constructor(
     private achatService : AchatService,
@@ -22,7 +30,6 @@ export class ViewAchatComponent implements OnInit {
   ngOnInit(): void {
     this.idAchat = this.route.snapshot.params['id'];
     this.getAchat(this.idAchat);
-    console.log(this.achat);
   }
 
   getAchat(id : Number){
@@ -30,7 +37,7 @@ export class ViewAchatComponent implements OnInit {
       .subscribe(
         (data) => {
           this.achat = data
-          console.log(data)
+          this.datasource = new MatTableDataSource(this.achat.achats);
         }
       );
   }

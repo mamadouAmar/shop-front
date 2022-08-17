@@ -1,5 +1,6 @@
 .ligne-vente {
     max-height: 400px;
+    overflow: auto;
 }
 
 button {

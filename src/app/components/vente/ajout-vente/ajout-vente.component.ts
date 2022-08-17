@@ -16,14 +16,17 @@ import { VenteService } from 'src/app/services/vente.service';
 })
 export class AjoutVenteComponent implements OnInit {
 
+  selectedProduitControl = new FormControl('');
+  filteredOptions! : Observable<ProduitDTO[]>
+  options: ProduitDTO[] = [];
+
   nouveauVente! : VenteForAdd;
+  ligneVentes : LigneVenteForAdd[] = [];
 
 
   venteFormGroup! : FormGroup;
-
   ligneVenteFormGroup! : FormGroup;
 
-  ligneVentes : LigneVenteForAdd[] = [];
 
   datasource = new MatTableDataSource<LigneVenteForAdd>(this.ligneVentes);
 
@@ -41,10 +44,6 @@ export class AjoutVenteComponent implements OnInit {
   {
     
   }
-
-  selectedProduitControl = new FormControl('');
-  filteredOptions! : Observable<ProduitDTO[]>
-  options: ProduitDTO[] = [];
   
 
   ngOnInit() {
