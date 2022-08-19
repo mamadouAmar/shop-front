@@ -1,9 +1,8 @@
-import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatTableDataSource } from '@angular/material/table/table-data-source';
+import { MatTableDataSource } from '@angular/material/table';
 import { Observable } from 'rxjs';
-import { Achat, AchatForAdd } from 'src/app/models/achat';
+import { AchatForAdd } from 'src/app/models/achat';
 import { LigneAchatForAdd } from 'src/app/models/ligne-achat';
 import { ProduitDTO, ReducedProduit } from 'src/app/models/produit';
 import { AchatService } from 'src/app/services/achat.service';
@@ -37,7 +36,7 @@ export class AjoutAchatComponent implements OnInit {
 
   coutTotaux = this.totalAchat+this.frais;
 
-  datasource = new MatTableDataSource<LigneAchatForAdd>(this.ligneAchats);
+  datasource= new MatTableDataSource<LigneAchatForAdd>(this.ligneAchats);
 
   achatFormGroup! : FormGroup;
   ligneAchatFormGroup! : FormGroup;

@@ -1,13 +1,13 @@
 <mat-card class="m-3 vente-info p-3">
     <div class="row">
-        <label>Vente id :</label>
+        <label>Vente id : {{vente.idVente}} </label>
     </div> 
     <div class="row">
-        <label>Date : </label>
+        <label>Date : {{vente.dateVente | date : 'short'}} </label>
     </div>
     
     <div class="row">
-        <label>Total : </label>
+        <label>Total : {{vente.totalVente}} </label>
     </div>
     <div class="row ligne-vente">
         <table mat-table [dataSource]="this.datasource" class="mat-table-elevation-z5">

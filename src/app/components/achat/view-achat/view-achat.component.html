@@ -1,14 +1,14 @@
 <mat-card class="m-3 vente-info p-3">
     <div class="row">
-        <label>Achat id :</label>
+        <label>Achat id : {{ achat.idAchat }}</label>
     </div> 
     <div class="row">
-        <label>Date : </label>
+        <label>Date : {{achat.dateEnregistrement | date : 'short'}} </label>
     </div>
     
     <div class="row">
-        <label class="col">Frais : </label>
-        <label class="col">Cout total :</label>
+        <label class="col">Frais : {{achat.frais}} </label>
+        <label class="col">Cout total : {{achat.coutTotal}} </label>
     </div>
 
     <div class="row ligne-vente">
@@ -37,4 +37,10 @@
             <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
         </table>
     </div>
+    <div class="">
+        <button>retour</button> 
+        <button>modifier</button>
+        <button>imprimer</button>
+    </div>
+
 </mat-card>
