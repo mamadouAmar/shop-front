@@ -22,7 +22,7 @@ export class AjoutAchatComponent implements OnInit {
   filteredOptions! : Observable<ProduitDTO[]>
   options: ProduitDTO[] = [];
 
-  displayedColumns: string[] = ['idProduit', 'libelle', 'quantite', 'total'];
+  displayedColumns: string[] = ['idProduit', 'libelle', 'quantite', 'total', 'prixVente'];
 
   nouvelAchat! : AchatForAdd;
   ligneAchats: LigneAchatForAdd[] = [];
@@ -137,6 +137,7 @@ export class AjoutAchatComponent implements OnInit {
           console.log(value);
           this.ligneAchats = [];
           this.datasource = new MatTableDataSource(this.ligneAchats);
+          this.frais = 0;
           this.totalAchat = 0;
           this.achatFormGroup.reset();
         });
